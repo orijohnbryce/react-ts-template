@@ -1,6 +1,7 @@
 import { createContext, useState } from "react";
 import Cars from "./components/Cars";
 import { CarType } from "./types/car-type";
+import BasicExample from "./components/DropDownExample";
 
 
 const carsData: CarType[] = [
@@ -14,7 +15,8 @@ export const DarkModeContext = createContext<any>(null);
 
 function App() {
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
-    
+    const [cars, setCars] = useState(carsData)
+
     return (
         <DarkModeContext.Provider value={{isDarkMode}}>
 
@@ -26,8 +28,9 @@ function App() {
             </div>
             <div>            
                 <h1> Hello React-Typescript template</h1>
-                <Cars cars={carsData}/>
+                <Cars cars={cars} setCars={setCars}/>
             </div>
+            <BasicExample/>
         </DarkModeContext.Provider>
     );
 }
