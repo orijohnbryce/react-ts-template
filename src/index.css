@@ -1,0 +1,22 @@
+.pc-only {
+
+}
+
+.mobile-only {
+
+}
+
+/* only for wide screens */
+@media screen and (min-width: 600px) {
+    
+    .mobile-only {
+        display: none;
+    }
+}
+
+/* only for small screens */
+@media screen and (max-width: 600px) {
+    .pc-only {
+        display: none;
+    }
+}
