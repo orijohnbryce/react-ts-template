@@ -1,9 +1,11 @@
 import { configureStore } from "@reduxjs/toolkit";
 import productsSlice from "./slices/productsSlice";
+import counterSliceMoshe from "./slices/counterSlice";
 
 export const store = configureStore({
   reducer: {
     productsSlice: productsSlice,
+    counterSlice: counterSliceMoshe,
   },
 });
 

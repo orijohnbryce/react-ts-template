@@ -3,6 +3,7 @@ import Products from "./components/Products";
 import { fetchProducts } from "./client/products-client";
 import { useDispatch } from "react-redux";
 import { setProd } from "./redux/slices/productsSlice";
+import Counter from "./components/Counter";
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
 
   return (
       <div>
+          <Counter/>
       <h1> Redux + Redux Toolkit Example </h1>
           <Products />          
     </div>
