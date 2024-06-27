@@ -1,10 +1,14 @@
+import Navbar from "./components/Navbar";
+import Welcome from "./components/Welcome";
 
 function App() {
-    return (
-        <div>
-            <h1> Hello React-Typescript template</h1>
-        </div>
-    );
+  return (
+    <div>
+      <h1> Redux <br/> Auth with Northwind </h1>
+      <Welcome />
+      <Navbar />
+    </div>
+  );
 }
 
 export default App;
