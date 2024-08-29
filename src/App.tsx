@@ -1,22 +1,15 @@
 import { createContext, useState } from "react";
-import ProductsPage from "./components/productsPage/ProductsPage";
-import { sendOrder } from "./client/orderApi";
+import ProductsPagePaginated from "./components/productsPage/ProductsPagePaginated";
 
-export const AppContext = createContext<any>(null)
+export const AppContext = createContext<any>(null);
 
 function App() {
-
-    const [order, setOrder] = useState([])
-    const handleSend =  ()=>{
-        sendOrder(order);
-    }
-    return (
-        <AppContext.Provider value={{order, setOrder}}>
-            <h1> Hello My Store</h1>
-            <button onClick={handleSend}> send order </button>
-            <ProductsPage/>
-        </AppContext.Provider>        
-    );
+  return (
+    <>
+      <h1> Hello My Store</h1>
+      <ProductsPagePaginated />
+    </>
+  );
 }
 
 export default App;

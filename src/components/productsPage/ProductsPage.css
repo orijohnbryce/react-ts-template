@@ -1,0 +1,8 @@
+.p-card {
+    border: black solid 1px;
+    margin-bottom: 15px;
+}
+
+.p-image {
+    max-width: 100px;
+}

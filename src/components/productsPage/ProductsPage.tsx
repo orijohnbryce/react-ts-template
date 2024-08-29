@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { getAllProducts } from "../../client/productApi";
 import { AppContext } from "../../App";
 
-type Props = {};
 
 const ProductsPage = () => {
   const [products, setProducts] = useState<any>([]);
@@ -31,7 +30,7 @@ const ProductsPage = () => {
       {products.map((p: any) => {
         return (
           <div key={p.id}>
-            <h3> {p.name} </h3>
+            <h3> {p.name} - { p.id}</h3>
             <p> {p.price} </p>
             <button onClick={() => handleUpdateOrder(p.id)}> + </button>
             <button
