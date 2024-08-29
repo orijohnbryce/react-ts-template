@@ -4,3 +4,25 @@ export async function getAllProducts() {
     const resJ = await res.json();          
     return resJ; 
 }
+
+export async function getPaginatedProducts(page: number, limit:number=10) {
+    const url = `http://localhost:4000/api/v1/products-pg?page=${page}&limit=${limit}`;
+    const res = await fetch(url);
+    const resJ = await res.json();          
+    return resJ; 
+}
+
+export async function uploadProductImage(productId: number, image: File): Promise<void> {
+    const url = `http://localhost:4000/api/v1/image/${productId}`;
+    const formData = new FormData();
+    formData.append('image', image);
+
+    await fetch(url, {method: 'POST', body: formData});
+}
+
+export async function getProductImages(pid:number) {
+    const url = `http://localhost:4000/api/v1/images/${pid}`;
+    const res = await fetch(url);
+    const resJ = await res.json();
+    return resJ;
+}
