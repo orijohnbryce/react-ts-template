@@ -8,19 +8,19 @@ type Props = {
 const ProductImages = (props: Props) => {
     const [images, setImages] = useState<string[]>([])
 
-    useEffect(()=>{
-        getProductImages(props.pid).then((images_)=>{
+    useEffect(() => {
+        getProductImages(props.pid).then((images_) => {
             setImages(images_);
         })
     }, [])
 
-  return (
-    <div>
-        {images.map((im:string)=>{
-            return <img key={im} style={{maxWidth: '100px'}} src={`http://localhost:4000/api/v1/image/${im}`} alt='product-image'/>
-        })}
-    </div>
-  )
+    return (
+        <div>
+            {images.map((im: string) => {
+                return <img key={im} style={{ maxWidth: '100px' }} src={`https://orstore1.s3.amazonaws.com/${im}`} alt='product-image' />
+            })}
+        </div>
+    )
 }
 
 export default ProductImages
