@@ -1,27 +1,30 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import { io, Socket } from "socket.io-client";
 import socketService from "../../services/socketService";
 
 type Props = {};
 
 const Chat = (props: Props) => {
-  const [user, setUser] = useState("");
-  const [connected, setConnected] = useState(false);
+  const [user, setUser] = useState("");  
   const [msg, setMsg] = useState("");
   const [msgs, setMsgs] = useState<string[]>([]);
 
+  // trick for rerendering
+  const [, forceUpdate] = useReducer(x => x + 1, 0);
+
   async function connect() {
-    await socketService.connect(setMsgs, user);
-    setConnected(true);
+    await socketService.connect(setMsgs, user);    
   }
   async function disconnect() {
     await socketService.disconnect();
-    setConnected(false);
+
+    // rerender
+    forceUpdate()
   }
 
   return (
     <div>
-      {!connected && (
+      {!socketService.socket && (
         <>
           <input
             placeholder="enter name"
@@ -30,11 +33,11 @@ const Chat = (props: Props) => {
               setUser(e.target.value);
             }}
           />
-          <button onClick={connect}> Connect </button>
+          {!socketService.socket && <button onClick={connect}> Connect </button>}
         </>
       )}
 
-      {connected && (
+      {socketService.socket && (
         <>
           <button onClick={disconnect}> Disconnect </button>
           <br/>
