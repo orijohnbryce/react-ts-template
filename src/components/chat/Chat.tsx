@@ -5,12 +5,11 @@ import "./Chat.css";
 const Chat = () => {
     const [newMsg, setNewMsg] = useState("");
     const [msgs, setMesgs] = useState<string[]>([]);
-    const [username, setUsername] = useState("");
 
     const [, forceUpdate] = useReducer((x) => x + 1, 0);
 
     const handleConnect = async () => {
-        await socketService.connect(setMesgs, username);
+        await socketService.connect(setMesgs);
         forceUpdate();
     };
 
@@ -21,7 +20,6 @@ const Chat = () => {
 
     const handleDisconnect = async () => {
         socketService.disconnect();
-        setUsername("");
         forceUpdate();
     };
 
@@ -29,13 +27,7 @@ const Chat = () => {
         <div className="chat-container">
             {!socketService.socket && (
                 <div className="login-screen">
-                    <input
-                        className="username-input"
-                        value={username}
-                        placeholder="Enter your name"
-                        onChange={(e) => setUsername(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleConnect()}
-                    />
+
                     <button className="connect-btn" onClick={handleConnect}>
                         Connect
                     </button>
@@ -48,8 +40,7 @@ const Chat = () => {
                         {msgs.map((msg: string, index: number) => (
                             <div
                                 key={index}
-                                className={`message-bubble ${msg.startsWith(username) ? "outgoing" : "incoming"
-                                    }`}
+                                className={`message-bubble "incoming"}`}
                             >
                                 {msg}
                             </div>
@@ -62,7 +53,7 @@ const Chat = () => {
                             value={newMsg}
                             placeholder="Type a message"
                             onChange={(e) => setNewMsg(e.target.value)}
-                            onKeyDown={(e) => e.key === "Enter" && handleSend()} 
+                            onKeyDown={(e) => e.key === "Enter" && handleSend()}
                         />
 
                         <button className="send-btn" onClick={handleSend}>
