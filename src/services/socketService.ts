@@ -1,0 +1,31 @@
+import { Socket, io } from "socket.io-client"
+
+class SocketService {
+    private socket: Socket|undefined;
+
+    async connect(setMsgs: any, username: string) {
+        this.socket = io("http://localhost:4000", {query: {username}})
+
+        this.socket.on("server-msg", (data: {msg:string, username: string}) => {
+            console.log("new msg from server:" + data.msg);
+            // setMsgs((prevMsgs:string[])=>[...prevMsgs, msg])
+
+            if (data.username !== "self") {                
+                setMsgs((prevMsgs: any) => [...prevMsgs, data.username + ": " + data.msg]);
+            }
+        })
+    }
+
+    send(msg: string): void{
+        this.socket?.emit("new-msg", msg)
+    }
+    async disconnect(){
+        this.socket?.disconnect();
+        this.socket = undefined;
+    }
+}
+
+const socketService = new SocketService();
+
+export default socketService;
+
